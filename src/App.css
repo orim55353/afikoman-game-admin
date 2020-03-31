@@ -1,5 +1,26 @@
 .App {
   text-align: center;
+  width: 85vw;
+  margin: 0 auto;
+  margin-top: 10px;
+  display: grid;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+}
+
+.submit {
+  height: 40px;
+  width: 200px;
+}
+
+input {
+  height: 50px;
+  text-align: right;
+  direction: rtl;
 }
 
 .App-logo {
