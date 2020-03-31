@@ -12,6 +12,7 @@ class App extends React.Component {
       ans2: "",
       ans3: "",
       ans4: "",
+      correct: "",
       errors: null
     };
 
@@ -20,9 +21,13 @@ class App extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+    if (event.target.type === "radio") {
+      this.setState({ correct: event.target.value });
+    } else {
+      this.setState({
+        [event.target.name]: event.target.value
+      });
+    }
   }
 
   async handleSubmit(event) {
@@ -34,7 +39,8 @@ class App extends React.Component {
       this.state.ans1 !== "" &&
       this.state.ans2 !== "" &&
       this.state.ans3 !== "" &&
-      this.state.ans4 !== ""
+      this.state.ans4 !== "" &&
+      this.state.correct !== ""
     ) {
       var data: { String: String } = {};
       data["Question"] = this.state.question;
@@ -42,6 +48,7 @@ class App extends React.Component {
       data["ans2"] = this.state.ans2;
       data["ans3"] = this.state.ans3;
       data["ans4"] = this.state.ans4;
+      data["correct"] = this.state.correct;
 
       try {
         await questsRef.push({
@@ -52,7 +59,8 @@ class App extends React.Component {
           ans1: "",
           ans2: "",
           ans3: "",
-          ans4: ""
+          ans4: "",
+          correct: ""
         });
         alert("העלאת השאלה הצליחה");
       } catch (error) {
@@ -68,39 +76,92 @@ class App extends React.Component {
     return (
       <div className="App">
         <form onSubmit={this.handleSubmit}>
-          <input
-            name="question"
-            onChange={this.handleChange}
-            placeholder="שאלה"
-            value={this.state.question}
-          ></input>
-          <input
-            name="ans1"
-            onChange={this.handleChange}
-            placeholder="תשובה מספר 1"
-            value={this.state.ans1}
-          ></input>
-          <input
-            name="ans2"
-            onChange={this.handleChange}
-            placeholder="תשובה מספר 2"
-            value={this.state.ans2}
-          ></input>
-          <input
-            name="ans3"
-            onChange={this.handleChange}
-            placeholder="תשובה מספר 3"
-            value={this.state.ans3}
-          ></input>
-          <input
-            name="ans4"
-            onChange={this.handleChange}
-            placeholder="תשובה מספר 4"
-            value={this.state.ans4}
-          ></input>
-          <button type="submit" className="submit">
-            שלח לשרת
-          </button>
+          <table align="right">
+            <tr>
+              <td></td>
+              <td>
+                <input
+                  name="question"
+                  onChange={this.handleChange}
+                  placeholder="שאלה"
+                  value={this.state.question}
+                ></input>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="radio"
+                  id="male"
+                  name="answer"
+                  value="1"
+                  onChange={this.handleChange}
+                />
+              </td>
+              <input
+                name="ans1"
+                onChange={this.handleChange}
+                placeholder="תשובה מספר 1"
+                value={this.state.ans1}
+              />
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="radio"
+                  id="male"
+                  name="answer"
+                  value="2"
+                  onChange={this.handleChange}
+                />
+              </td>
+              <input
+                name="ans2"
+                onChange={this.handleChange}
+                placeholder="תשובה מספר 2"
+                value={this.state.ans2}
+              />
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="radio"
+                  id="male"
+                  name="answer"
+                  value="3"
+                  onChange={this.handleChange}
+                />
+              </td>
+              <input
+                name="ans3"
+                onChange={this.handleChange}
+                placeholder="תשובה מספר 3"
+                value={this.state.ans3}
+              />
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="radio"
+                  id="male"
+                  name="answer"
+                  value="4"
+                  onChange={this.handleChange}
+                />
+              </td>
+              <input
+                name="ans4"
+                onChange={this.handleChange}
+                placeholder="תשובה מספר 4"
+                value={this.state.ans4}
+              />
+            </tr>
+            <tr>
+              <button type="submit" className="submit">
+                שלח לשרת
+              </button>
+            </tr>
+          </table>
         </form>
       </div>
     );
